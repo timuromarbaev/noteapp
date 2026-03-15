@@ -18,6 +18,17 @@ class NoteDatabase {
   final List<Note> currentNotes = [];
 
   // Create a new note
+  Future<void> createNote(String textFromUser) async {
+    // Create a new note instance 
+    final newNote = Note(
+      title: 'New Note', // You can customize this as needed
+      content: textFromUser,
+      createdAt: DateTime.now(),
+    );
+
+  // Save the new note to the database
+    await isar.writeTxn(() => isar.notes.put(newNote));
+  }
 
   // Read a note by ID
 
