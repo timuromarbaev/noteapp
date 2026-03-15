@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:noteapp/models/note_database.dart';
 import 'package:noteapp/pages/notes_pages.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async{
+
+  // Initialize the database before running the app
+  WidgetsFlutterBinding.ensureInitialized();
+  await NoteDatabase.initialize();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NoteDatabase(), 
+      child: const MainApp()
+    )
+  );
 }
 
 class MainApp extends StatelessWidget {

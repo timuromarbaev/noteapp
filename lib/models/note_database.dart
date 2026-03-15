@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:noteapp/models/note.dart'; // Import your Note model here
 
-class NoteDatabase {
+class NoteDatabase extends ChangeNotifier {
   static late Isar isar;
 
   // Initialize the database connection and setup tables here
@@ -40,6 +41,7 @@ class NoteDatabase {
     List<Note> fetchedNotes = await isar.notes.where().findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchedNotes);
+    notifyListeners(); // Notify listeners to update the UI
   }
 
   // Update an existing note
